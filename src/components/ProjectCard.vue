@@ -34,22 +34,22 @@ export default {
             <p class="card-text">{{ truncateText }}</p>
         </div>
 
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
+        <ul class="list-group list-group-flush ">
+            <li class="list-group-item text-start">
                 <span class="fw-bold ">
                     Type:
                 </span>
                 {{ project.type ? project.type.name : 'No type for this project' }}
 
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item text-start">
                 <span class="fw-bold ">
                     Technologies:
                 </span>
 
-                <span v-if="project.technologies > 0">
-                    <span v-for="technology in technologies" class="badge bg-light text-dark fs-5" :key="technology.id">
-                        {{ count(project.technology) > 0 ? project.technology.name : 'No technologies for this project' }}
+                <span v-if="project.technologies.length > 0">
+                    <span v-for="technology in project.technologies" class="badge bg-light text-dark fs-6" :key="technology.id">
+                        {{ technology.name }}
                     </span>
                 </span>
 
