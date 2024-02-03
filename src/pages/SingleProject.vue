@@ -84,7 +84,7 @@ export default {
                         </span>
                     </span>
 
-                    <span v-else>
+                    <span v-else class="fs-5">
                         No technologies for this project
                     </span>
 
@@ -106,7 +106,7 @@ export default {
                     </span>
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-3" v-if="project.updated_at != project.created_at">
                     <span class="fw-bold fs-5">Updated On: </span>
 
                     <span class="fs-5">
