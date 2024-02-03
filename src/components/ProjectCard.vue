@@ -45,9 +45,7 @@ export default {
 
             </li>
             <li class="list-group-item text-start">
-                <span class="fw-bold ">
-                    Technologies:
-                </span>
+                <span class="fw-bold ">Technologies: </span>
 
                 <span v-if="project.technologies.length > 0">
                     <span v-for="technology in project.technologies" class="badge bg-light text-dark fs-6"
@@ -59,9 +57,12 @@ export default {
                 <span v-else>
                     No technologies for this project
                 </span>
-
             </li>
         </ul>
+
+        <div class="card-body">
+            <router-link class="btn btn-dark text-light" :to="{name:'single-project', params:{ slug: project.slug }}">See project details </router-link>
+        </div>
     </div>
 </template>
 
