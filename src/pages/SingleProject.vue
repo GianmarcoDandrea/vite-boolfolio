@@ -32,7 +32,12 @@ export default {
         addedDate() {
             if (this.project)
                 return DateTime.fromISO(this.project.created_at).toFormat('dd LLLL yyyy');
+        },
+        updatedDate() {
+            if (this.project)
+                return DateTime.fromISO(this.project.updated_at).toFormat('dd LLLL yyyy');
         }
+
     }
 }
 </script>
@@ -98,6 +103,14 @@ export default {
 
                     <span class="fs-5">
                         {{ addedDate }}
+                    </span>
+                </div>
+
+                <div class="mb-3">
+                    <span class="fw-bold fs-5">Updated On: </span>
+
+                    <span class="fs-5">
+                        {{ updatedDate }}
                     </span>
                 </div>
 
