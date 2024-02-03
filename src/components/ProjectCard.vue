@@ -1,8 +1,10 @@
 <script>
+import { store } from '../store';
+
 export default {
     data() {
         return {
-            projectsServerUrl: 'http://127.0.0.1:8000',
+            store,
         }
     },
     props: {
@@ -26,7 +28,7 @@ export default {
 
 <template>
     <div class="card" style="width: 18rem;">
-        <img :src="project.cover_image ? `${projectsServerUrl}/storage/${project.cover_image}` : getNoImg()"
+        <img :src="project.cover_image ? `${store.projectsServerUrl}/storage/${project.cover_image}` : getNoImg()"
             class="card-img-top" :alt="project.cover_image ? `Poster of ${project.title} project` : 'Image not avaiable'">
 
         <div class="card-body">
@@ -48,7 +50,8 @@ export default {
                 </span>
 
                 <span v-if="project.technologies.length > 0">
-                    <span v-for="technology in project.technologies" class="badge bg-light text-dark fs-6" :key="technology.id">
+                    <span v-for="technology in project.technologies" class="badge bg-light text-dark fs-6"
+                        :key="technology.id">
                         {{ technology.name }}
                     </span>
                 </span>

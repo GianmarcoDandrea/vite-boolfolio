@@ -1,16 +1,17 @@
 <script>
 import axios from 'axios';
-import ProjectCard from "./ProjectCard.vue";
+import ProjectCard from "../components/ProjectCard.vue";
+import { store } from "../store";
 export default {
     data() {
         return {
-            projectsServerUrl: 'http://127.0.0.1:8000',
+            store,
             projects: [],
         }
     },
 
     created() {
-        axios.get(`${this.projectsServerUrl}/api/projects`)
+        axios.get(`${this.store.projectsServerUrl}/api/projects`)
             .then((resp) => {
                 this.projects = resp.data.results.data
                 console.log(resp.data.results.data);
@@ -30,7 +31,7 @@ export default {
 
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3">
             <div v-for="project in projects" :key="project.id" class="col">
-                <ProjectCard :project="project"/>
+                <ProjectCard :project="project" />
             </div>
         </div>
 

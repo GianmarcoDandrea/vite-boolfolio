@@ -1,5 +1,6 @@
 <script>
-import AppMain from './components/AppMain.vue';
+import AppHeader from './components/AppHeader.vue';
+import AppFooter from './components/AppFooter.vue';
 
 export default {
   data() {
@@ -8,23 +9,19 @@ export default {
     }
   },
   components: {
-    AppMain,
+    AppHeader,
+    AppFooter
   }
 }
 </script>
 
 
 <template>
-  <nav class="navbar navbar-dark bg-dark px-5">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <h2>Projects For You</h2>
-      </a>
-    </div>
-  </nav>
-  <main>
-    <AppMain />
-  </main>
+  <AppHeader></AppHeader>
+
+  <router-view></router-view>
+
+  <AppFooter></AppFooter>
 </template>
 
 
