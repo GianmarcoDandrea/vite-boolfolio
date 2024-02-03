@@ -113,12 +113,8 @@ export default {
                         {{ updatedDate }}
                     </span>
                 </div>
-
-
-
             </div>
         </div>
-
     </div>
 </template>
 
