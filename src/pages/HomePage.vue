@@ -67,6 +67,8 @@ export default {
             this.projects.push(project)
 
             this.loading = false;
+            this.page_count++;
+
         },
     }
 }
