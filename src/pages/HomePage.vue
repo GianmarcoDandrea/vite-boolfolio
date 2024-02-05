@@ -23,7 +23,7 @@ export default {
 
     mounted() {
         const container = document.querySelector('.container');
-        if (container.length && (Math.ceil(window.scrollTop()) + 1) >= Math.ceil(document.height() - window.height()) && scroll == false) {
+        if (container.length && (Math.ceil(window.scrollTop()) + 500) >= Math.ceil(document.height() - window.height()) && scroll == false) {
             console.log('ciao');
             // getNextBatch(page_count)
         }
