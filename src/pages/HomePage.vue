@@ -9,8 +9,8 @@ export default {
             projects: [],
             curPage: 1,
             lastPage: 1,
-            total: 0, 
-            page_count : 2,
+            total: 0,
+            page_count: 2,
         }
     },
 
@@ -23,10 +23,12 @@ export default {
 
     mounted() {
         const container = document.querySelector('.container');
-        if (container.length && (Math.ceil(window.scrollTop()) + 500) >= Math.ceil(document.height() - window.height()) && scroll == false) {
-            console.log('ciao');
-            // getNextBatch(page_count)
-        }
+        container.addEventListener('scroll', event => {
+
+            if (container.length && (Math.ceil(container.scrollTop()) + 500) >= Math.ceil(document.height() - window.height()) && scroll == false) {
+                console.log('ciao');
+            }
+        })
     },
 
     methods: {
@@ -48,13 +50,15 @@ export default {
             window.scrollTo(0, 0);
         },
 
-        getNextBatch(page_count) {
+        getNextProjects(page_count) {
             this.loading = true;
-            axios.get(`${this.store.projectsServerUrl}/api/projects`, {
-                params: {
-                    page: page_count,
-                },
-            })
+
+            axios
+                .get(`${this.store.projectsServerUrl}/api/projects`, {
+                    params: {
+                        page: page_count,
+                    },
+                })
                 .then((resp) => {
                     this.projects = resp.data.results.data;
                     this.lastPage = resp.data.results.last_page;
