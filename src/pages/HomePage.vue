@@ -7,19 +7,36 @@ export default {
         return {
             store,
             projects: [],
+            curPage: 1,
+            lastPage: 1,
+            total: 0
         }
     },
 
     created() {
-        axios.get(`${this.store.projectsServerUrl}/api/projects`)
-            .then((resp) => {
-                this.projects = resp.data.results.data
-                console.log(resp.data.results.data);
-            })
+        this.getProjects(1);
     },
     components: {
         ProjectCard
-    }
+    },
+    methods: {
+    getProjects(pageNum) {
+
+      this.curPage = pageNum;
+
+      axios.get(`${this.store.projectsServerUrl}/api/projects`, {
+          params: {
+            page: pageNum,
+          },
+        })
+        .then((resp) => {
+          this.projects = resp.data.results.data;
+          this.lastPage = resp.data.results.last_page;
+        });
+
+        window.scrollTo(0, 0);
+    },
+  },
 
 }
 </script>
@@ -35,7 +52,21 @@ export default {
             </div>
         </div>
 
+        <div class="my-4">
+            <button class="btn btn-dark me-3" :disabled="curPage === 1" href="" @click="getProjects(curPage - 1)">
+                Prev
+            </button>
+    
+            <button class="btn btn-dark mx-1" :class="{'disabled': num === curPage}" v-for="num in lastPage" @click="getProjects(num)">
+                {{ num }}
+            </button>
+    
+            <button class="btn btn-dark ms-3" href="" :disabled="curPage === lastPage" @click="getProject(curPage + 1)">
+                Next
+            </button>
+        </div>
     </div>
+
 </template>
 
 <style lang="scss"></style>
