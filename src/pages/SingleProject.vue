@@ -15,7 +15,7 @@ export default {
     created() {
         axios.get(`${store.projectsServerUrl}/api/projects/${this.$route.params.slug}`)
             .then((resp) => {
-                if (resp.success) {
+                if (resp.data.success) {
                     this.project = resp.data.results;
                 } else {
                     this.$router.push({name: 'not-found'})

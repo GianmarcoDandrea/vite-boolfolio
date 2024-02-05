@@ -9,7 +9,8 @@ export default {
             projects: [],
             curPage: 1,
             lastPage: 1,
-            total: 0
+            total: 0, 
+            page_count : 2,
         }
     },
 
@@ -19,10 +20,20 @@ export default {
     components: {
         ProjectCard
     },
+
+    mounted() {
+        const container = document.querySelector('.container');
+        if (container.length && (Math.ceil(window.scrollTop()) + 1) >= Math.ceil(document.height() - window.height()) && scroll == false) {
+            console.log('ciao');
+            // getNextBatch(page_count)
+        }
+    },
+
     methods: {
         getProjects(pageNum) {
 
             this.curPage = pageNum;
+
 
             axios.get(`${this.store.projectsServerUrl}/api/projects`, {
                 params: {
@@ -36,8 +47,24 @@ export default {
 
             window.scrollTo(0, 0);
         },
-    },
 
+        getNextBatch(page_count) {
+            this.loading = true;
+            axios.get(`${this.store.projectsServerUrl}/api/projects`, {
+                params: {
+                    page: page_count,
+                },
+            })
+                .then((resp) => {
+                    this.projects = resp.data.results.data;
+                    this.lastPage = resp.data.results.last_page;
+                });
+
+            this.projects.push(project)
+
+            this.loading = false;
+        },
+    }
 }
 </script>
 
@@ -52,7 +79,7 @@ export default {
             </div>
         </div>
 
-        <div class="my-4">
+        <div class="my-4 ">
             <button class="btn btn-dark me-3" :disabled="curPage === 1" href="" @click="getProjects(curPage - 1)">
                 Prev
             </button>
@@ -62,7 +89,7 @@ export default {
                 {{ num }}
             </button>
 
-            <button class="btn btn-dark ms-3" href="" :disabled="curPage === lastPage" @click="getProject(curPage + 1)">
+            <button class="btn btn-dark ms-3" href="" :disabled="curPage === lastPage" @click="getProjects(curPage + 1)">
                 Next
             </button>
         </div>
